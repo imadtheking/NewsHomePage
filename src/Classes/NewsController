@@ -5,3 +5,4 @@ public with sharing class NewsController {
         return [SELECT Title__c,Publication_Date__c,Link__c FROM News__c LIMIT 3]; 
     }
 }
+ 
