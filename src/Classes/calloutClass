@@ -1,0 +1,57 @@
+global class calloutClass {
+    @future (Callout=true)
+    global static void newsCall(){
+        list <News__c> getNews = new list <News__c>();
+        http http = new http();
+        httpRequest req = new httpRequest();
+        req.setHeader('Content-type', 'text/XML');
+        req.setMethod('GET');
+        req.setEndpoint('https://www.salesforceben.com/feed/');
+        httpResponse res = http.send(req);
+        Dom.Document doc = res.getBodyDocument();
+        Dom.XmlNode fileNews = doc.getRootElement();
+        for(Dom.XmlNode child : fileNews.getChildElements()){
+            if(child.getName()== 'chennel'){
+                for(Dom.XmlNode child2 : child.getChildElements()){
+                    if(child2.getName()=='item'){
+                        Datetime dt = getConvertDateTime(child2.getChildElement('putDate',null).getText());
+                        Date d = date.newInstance(dt.year(), dt.month(), dt.day());
+                        DateTime dtNow = System.now();
+                        Date dNow = date.newInstance(dtNow.year(), dtNow.month(), dtNow.day());
+                        Date dayAgo = Date.today().addDays(-1);
+                         system.debug(Child2.getChildElement('pubDate',null).getText());
+                        getNews.add(new News__c(Title__c= child2.getChildElement('title',null).getText(),
+                                               Publication_Date__c = d,
+                                               Link__c = child2.getChildElement('Link',null).getText()));
+                    }
+                }
+            }
+        }
+        insert getNews;
+    } 
+    public static DateTime getConvertDateTime(String strDT){
+        map<String,Integer> MapMonth = new map<String,Integer>();
+        MapMonth.put('Jan',1);
+        MapMonth.put('Feb',2);
+        MapMonth.put('Mar',3);
+        MapMonth.put('Apr',4);
+        MapMonth.put('May',5);
+        MapMonth.put('Jun',6);
+        MapMonth.put('Jul',7);
+        MapMonth.put('Aug',8);
+        MapMonth.put('Sep',9);
+        MapMonth.put('Oct',10);
+        MapMonth.put('Nov',11);
+        MapMonth.put('Dec',12);
+        String[] strDTDivided = strDT.split(' ');
+        string Month = string.valueOf(MapMonth.get(strDTDivided.get(2)));
+        string Day = strDTDivided.get(1);
+        string Year = strDTDivided.get(3);
+        string Hour = strDTDivided.get(4).split(':').get(0);
+        string Minute = strDTDivided.get(4).split(':').get(1);
+        string Second = strDTDivided.get(4).split(':').get(2);
+        string StringDate = Year + '-' + Month + '-' + Day + ' ' + Hour + ':'+ Minute + ':'+ Second;
+        DateTime myDate = datetime.valueOf(stringDate);
+        return myDate;
+    }
+}
