@@ -17,7 +17,7 @@ check before inserting the news if it already exists or not, if it exists, we sh
 
     4. Having the possibility to:
 see the last recent news in the home page of our org, all news should have (title, date, and button that redirects to the link of the news).
-    5. Since Salesforce is having 3 releases/year, and to optimize our data storage, we need:
-an automation that delete all records created in date < Today ()-4months.
+    5. Since Salesforce is having 3 releases/year:
+and to optimize our data storage, we need an automation that delete all records created in date < Today ()-4months.
     6. All the news should be created from the following link: "https://www.salesforceben.com/feed/"    
 ///////////////
