@@ -1,0 +1,11 @@
+public class ScheduledDeleteNews implements Schedulable {
+
+    public void execute(SchedulableContext ctx){
+            list<News__c> NewsList=[SELECT id FROM News__c WHERE Publication_Date__c < LAST_N_MONTHS:4];
+            
+
+            delete NewsList;
+    
+        
+    }    
+}
