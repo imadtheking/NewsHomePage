@@ -13,4 +13,4 @@ trigger NewsCheckTrigger on News__c (before insert) {
             
         }
     }
-}
+} 
