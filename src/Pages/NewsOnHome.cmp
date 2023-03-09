@@ -1,0 +1,11 @@
+<aura:component controller ="NewsController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global" >
+	
+    <aura:attribute name = "yesterdayNews" type = "News__c[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.getNews}" />
+    <aura:iteration var= "Ns" items = "{!v.yesterdayNews}">
+        <h1> {!Ns.Title__c}</h1>
+        <h3> Published: {!Ns.Publication_date__c}</h3>
+        <a href="{!Ns.Link__c}"> Discover </a>
+    </aura:iteration>
+    
+</aura:component>
