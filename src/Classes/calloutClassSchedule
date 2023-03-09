@@ -3,3 +3,4 @@ global class calloutClassSchedule implements Schedulable  {
             calloutClass.newsCall();
          }
 }
+ 
