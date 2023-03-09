@@ -1,0 +1,16 @@
+trigger NewsCheckTrigger on News__c (before insert) { 
+    list<String> TitleList = new list<String>();
+    for(News__c NSTitle :trigger.new){
+        TitleList.add(NSTitle.Title__c);
+    }
+    
+    
+    list<News__c> nTitleFromOrg = [SELECT Title__c FROM News__c 
+                                  WHERE Title__c IN :TitleList ];
+    for(News__c N :Trigger.new){
+        if(nTitleFromOrg.size()>0){
+            N.Title__c.addError('Dublicate News Title Found');
+            
+        }
+    }
+}
