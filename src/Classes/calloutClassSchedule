@@ -1,0 +1,5 @@
+global class calloutClassSchedule implements Schedulable  {
+         global void execute(SchedulableContext c) {
+            calloutClass.newsCall();
+         }
+}
