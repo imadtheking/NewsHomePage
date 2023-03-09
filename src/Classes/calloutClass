@@ -5,7 +5,7 @@ global class calloutClass {
         http http = new http();
         httpRequest req = new httpRequest();
         req.setHeader('Content-type', 'text/XML');
-        req.setMethod('GET');
+        req.setMethod('GET'); 
         req.setEndpoint('https://www.salesforceben.com/feed/');
         httpResponse res = http.send(req);
         Dom.Document doc = res.getBodyDocument();
